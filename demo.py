@@ -5,8 +5,8 @@ sys.path.append('/home/pesong/tools/ssd-caffe/python')
 import caffe  
 
 
-net_file= 'deploy.prototxt'  
-caffe_model='snapshot/mobilenet_iter_87000.caffemodel'
+net_file= 'example/MobileNetSSD_deploy.prototxt'
+caffe_model='example/MobileNetSSD_merged_deploy.caffemodel'
 test_dir = "images"
 
 if not os.path.exists(caffe_model):
@@ -15,12 +15,14 @@ if not os.path.exists(caffe_model):
     exit()
 net = caffe.Net(net_file,caffe_model,caffe.TEST)  
 
-CLASSES = ('background',
-           'aeroplane', 'bicycle', 'bird', 'boat',
-           'bottle', 'bus', 'car', 'cat', 'chair',
-           'cow', 'diningtable', 'dog', 'horse',
-           'motorbike', 'person', 'pottedplant',
-           'sheep', 'sofa', 'train', 'tvmonitor')
+# CLASSES = ('background',
+#            'aeroplane', 'bicycle', 'bird', 'boat',
+#            'bottle', 'bus', 'car', 'cat', 'chair',
+#            'cow', 'diningtable', 'dog', 'horse',
+#            'motorbike', 'person', 'pottedplant',
+#            'sheep', 'sofa', 'train', 'tvmonitor')
+
+CLASSES = ('background', 'person',  'car', 'bicycle')
 
 
 def preprocess(src):
