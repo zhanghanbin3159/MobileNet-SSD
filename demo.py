@@ -1,13 +1,12 @@
 import numpy as np  
 import sys,os  
 import cv2
-caffe_root = '/home/yaochuanqi/work/ssd/caffe/'
-sys.path.insert(0, caffe_root + 'python')  
+sys.path.append('/home/pesong/tools/ssd-caffe/python')
 import caffe  
 
 
 net_file= 'deploy.prototxt'  
-caffe_model='MobileNetSSD_deploy.caffemodel'  
+caffe_model='snapshot/mobilenet_iter_87000.caffemodel'
 test_dir = "images"
 
 if not os.path.exists(caffe_model):
