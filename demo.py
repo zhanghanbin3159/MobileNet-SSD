@@ -5,8 +5,8 @@ sys.path.append('/home/pesong/tools/ssd-caffe/python')
 import caffe  
 
 
-net_file= 'example/MobileNetSSD_deploy.prototxt'
-caffe_model='example/MobileNetSSD_merged_deploy.caffemodel'
+net_file= 'example/V2_4category/MobileNetSSD_deploy.prototxt'
+caffe_model='example/V2_4category/MobileNetSSDV2_merged_deploy.caffemodel'
 test_dir = "images"
 
 if not os.path.exists(caffe_model):
