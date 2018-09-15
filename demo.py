@@ -6,7 +6,7 @@ import caffe
 
 
 net_file= 'example/MobileNetSSD_deploy.prototxt'
-caffe_model='example/MobileNetSSD_merged_deploy.caffemodel'
+caffe_model='example/MobileNetSSD_merged_deploy_nms.caffemodel'
 test_dir = "images"
 
 if not os.path.exists(caffe_model):
