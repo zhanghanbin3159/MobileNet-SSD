@@ -9,8 +9,13 @@ item {
   display_name: "person"
 }
 item {
-  name: "face"
+  name: "car"
   label: 2
-  display_name: "face"
+  display_name: "car"
+}
+item {
+  name: "bicycle"
+  label: 3
+  display_name: "bicycle"
 }
 

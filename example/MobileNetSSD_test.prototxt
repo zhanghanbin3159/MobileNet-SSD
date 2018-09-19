@@ -2409,7 +2409,7 @@ layer {
   name: "conv11_mbox_conf_new"
   type: "Convolution"
   bottom: "conv11"
-  top: "conv11_mbox_conf_new"
+  top: "conv11_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2419,7 +2419,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 12
+    num_output: 9
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2433,7 +2433,7 @@ layer {
 layer {
   name: "conv11_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv11_mbox_conf_new"
+  bottom: "conv11_mbox_conf"
   top: "conv11_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2519,7 +2519,7 @@ layer {
   name: "conv13_mbox_conf_new"
   type: "Convolution"
   bottom: "conv13"
-  top: "conv13_mbox_conf_new"
+  top: "conv13_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2529,7 +2529,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 24
+    num_output: 18
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2543,7 +2543,7 @@ layer {
 layer {
   name: "conv13_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv13_mbox_conf_new"
+  bottom: "conv13_mbox_conf"
   top: "conv13_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2631,7 +2631,7 @@ layer {
   name: "conv14_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv14_2"
-  top: "conv14_2_mbox_conf_new"
+  top: "conv14_2_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2641,7 +2641,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 24
+    num_output: 18
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2655,7 +2655,7 @@ layer {
 layer {
   name: "conv14_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv14_2_mbox_conf_new"
+  bottom: "conv14_2_mbox_conf"
   top: "conv14_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2743,7 +2743,7 @@ layer {
   name: "conv15_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv15_2"
-  top: "conv15_2_mbox_conf_new"
+  top: "conv15_2_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2753,7 +2753,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 24
+    num_output: 18
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2767,7 +2767,7 @@ layer {
 layer {
   name: "conv15_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv15_2_mbox_conf_new"
+  bottom: "conv15_2_mbox_conf"
   top: "conv15_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2855,7 +2855,7 @@ layer {
   name: "conv16_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv16_2"
-  top: "conv16_2_mbox_conf_new"
+  top: "conv16_2_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2865,7 +2865,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 24
+    num_output: 18
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2879,7 +2879,7 @@ layer {
 layer {
   name: "conv16_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv16_2_mbox_conf_new"
+  bottom: "conv16_2_mbox_conf"
   top: "conv16_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2967,7 +2967,7 @@ layer {
   name: "conv17_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv17_2"
-  top: "conv17_2_mbox_conf_new"
+  top: "conv17_2_mbox_conf"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2977,7 +2977,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 24
+    num_output: 18
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2991,7 +2991,7 @@ layer {
 layer {
   name: "conv17_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv17_2_mbox_conf_new"
+  bottom: "conv17_2_mbox_conf"
   top: "conv17_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -3080,7 +3080,7 @@ layer {
     shape {
       dim: 0
       dim: -1
-      dim: 4
+      dim: 3
     }
   }
 }
@@ -3113,7 +3113,7 @@ layer {
     phase: TEST
   }
   detection_output_param {
-    num_classes: 4
+    num_classes: 3
     share_location: true
     background_label_id: 0
     nms_param {
@@ -3135,7 +3135,7 @@ layer {
     phase: TEST
   }
   detection_evaluate_param {
-    num_classes: 4
+    num_classes: 3
     background_label_id: 0
     overlap_threshold: 0.5
     evaluate_difficult_gt: false

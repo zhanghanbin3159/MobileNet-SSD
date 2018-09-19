@@ -8,17 +8,20 @@ layer {
     phase: TRAIN
   }
   transform_param {
-    scale: 0.007843
-    mirror: true
-    mean_value: 127.5
+    scale: 0.007843         # 归一化，1/127.5
+    mirror: true            # 0.5的概率镜像翻转
+    mean_value: 127.5       # 去均值(RGB)
     mean_value: 127.5
     mean_value: 127.5
     resize_param {
       prob: 1.0
-      resize_mode: WARP
-      height: 300
+      resize_mode: WARP     # 缩放操作的概率# 缩放模式
+                                #   WARP：放大或缩小以适应(width, height)
+                                #   FIT_SMALL_SIZE：
+                                #   FIT_LARGE_SIZE_AND_PAD：
+      height: 300               # 缩放后的高
       width: 300
-      interp_mode: LINEAR
+      interp_mode: LINEAR       # 插值模式同opencv
       interp_mode: AREA
       interp_mode: NEAREST
       interp_mode: CUBIC
@@ -27,6 +30,9 @@ layer {
     emit_constraint {
       emit_type: CENTER
     }
+
+    # 色彩扭曲参数组
+
     distort_param {
       brightness_prob: 0.5
       brightness_delta: 32.0
@@ -40,21 +46,30 @@ layer {
       saturation_upper: 1.5
       random_order_prob: 0.0
     }
+
+    # 图像扩展参数组（zoom-out）
+
     expand_param {
       prob: 0.5
       max_expand_ratio: 4.0
     }
   }
+
+  # 数据源参数组
+
   data_param {
     source: "lmdb/GSDATA_trainval_lmdb/"
     batch_size: 24
     backend: LMDB
   }
   annotated_data_param {
+    # 采样器1：原图
     batch_sampler {
       max_sample: 1
       max_trials: 1
     }
+
+    # 采样器2：随机抠图（overlap=0.1）
     batch_sampler {
       sampler {
         min_scale: 0.3
@@ -65,8 +80,8 @@ layer {
       sample_constraint {
         min_jaccard_overlap: 0.1
       }
-      max_sample: 1
-      max_trials: 50
+      max_sample: 1                     # 最大采样数量
+      max_trials: 50                    # 最大尝试数量（产生50个随机框，然后再筛选出1个输出）
     }
     batch_sampler {
       sampler {
@@ -133,7 +148,7 @@ layer {
       max_sample: 1
       max_trials: 50
     }
-    label_map_file: "labelmap.prototxt"
+    label_map_file: "labelmap.prototxt"             # 标签映射文件
   }
 }
 layer {
@@ -2514,7 +2529,7 @@ layer {
   name: "conv11_mbox_conf_new"
   type: "Convolution"
   bottom: "conv11"
-  top: "conv11_mbox_conf"
+  top: "conv11_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2524,7 +2539,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 9
+    num_output: 12
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2538,7 +2553,7 @@ layer {
 layer {
   name: "conv11_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv11_mbox_conf"
+  bottom: "conv11_mbox_conf_new"
   top: "conv11_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2624,7 +2639,7 @@ layer {
   name: "conv13_mbox_conf_new"
   type: "Convolution"
   bottom: "conv13"
-  top: "conv13_mbox_conf"
+  top: "conv13_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2634,7 +2649,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 18
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2648,7 +2663,7 @@ layer {
 layer {
   name: "conv13_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv13_mbox_conf"
+  bottom: "conv13_mbox_conf_new"
   top: "conv13_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2736,7 +2751,7 @@ layer {
   name: "conv14_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv14_2"
-  top: "conv14_2_mbox_conf"
+  top: "conv14_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2746,7 +2761,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 18
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2760,7 +2775,7 @@ layer {
 layer {
   name: "conv14_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv14_2_mbox_conf"
+  bottom: "conv14_2_mbox_conf_new"
   top: "conv14_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2848,7 +2863,7 @@ layer {
   name: "conv15_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv15_2"
-  top: "conv15_2_mbox_conf"
+  top: "conv15_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2858,7 +2873,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 18
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2872,7 +2887,7 @@ layer {
 layer {
   name: "conv15_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv15_2_mbox_conf"
+  bottom: "conv15_2_mbox_conf_new"
   top: "conv15_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2960,7 +2975,7 @@ layer {
   name: "conv16_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv16_2"
-  top: "conv16_2_mbox_conf"
+  top: "conv16_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2970,7 +2985,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 18
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -2984,7 +2999,7 @@ layer {
 layer {
   name: "conv16_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv16_2_mbox_conf"
+  bottom: "conv16_2_mbox_conf_new"
   top: "conv16_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -3072,7 +3087,7 @@ layer {
   name: "conv17_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv17_2"
-  top: "conv17_2_mbox_conf"
+  top: "conv17_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -3082,7 +3097,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 18
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -3096,7 +3111,7 @@ layer {
 layer {
   name: "conv17_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv17_2_mbox_conf"
+  bottom: "conv17_2_mbox_conf_new"
   top: "conv17_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -3198,7 +3213,7 @@ layer {
     loc_loss_type: SMOOTH_L1
     conf_loss_type: SOFTMAX
     loc_weight: 1.0
-    num_classes: 3
+    num_classes: 4
     share_location: true
     match_type: PER_PREDICTION
     overlap_threshold: 0.5
