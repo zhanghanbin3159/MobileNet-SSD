@@ -29,7 +29,7 @@ class CityScapeSegDataLayer(caffe.Layer):
         - randomize: load in random order (default: True)
         - seed: seed for randomization (default: None / current time)
         for PASCAL VOC semantic segmentation.
-        example
+        proto
         params = dict(bdd_dir="/path/to/bdd100k/seg",
             mean=[71.60167789, 82.09696889, 72.30608881],
             split="val")
@@ -128,7 +128,7 @@ class CityScapeSegDataLayer(caffe.Layer):
         in_ = in_[:, :, ::-1]
         in_ -= self.mean
         in_ = in_.transpose((2,0,1))
-        in_ = in_ * (2.0/255)
+        # in_ = in_ * (2.0/255)
         return in_
 
 

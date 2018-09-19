@@ -1,15 +1,17 @@
-train_net: "MobileNetSSD_train.prototxt"
-test_net: "MobileNetSSD_test.prototxt"
+train_net: "proto/seg/MobileNetSSD_train.prototxt"
+test_net: "proto/seg/MobileNetSSD_test.prototxt"
 test_iter: 673
 test_interval: 10000
+
 base_lr: 0.0005
-display: 10
+display: 20
 max_iter: 0
 lr_policy: "multistep"
 gamma: 0.5
 weight_decay: 0.00005
+
 snapshot: 0
-snapshot_prefix: "snapshot/mobilenet"
+snapshot_prefix: "snapshot/ssd"
 solver_mode: GPU
 debug_info: false
 snapshot_after_train: false
@@ -21,4 +23,3 @@ iter_size: 1
 type: "RMSProp"
 eval_type: "detection"
 ap_version: "11point"
-

@@ -3,11 +3,18 @@ import sys,os
 sys.path.append('/home/pesong/tools/ssd-caffe/python')
 import caffe  
 
-train_proto = 'example/MobileNetSSD_train.prototxt'
-train_model = 'snapshot/mobilenet_iter_10000.caffemodel'  #should be your snapshot caffemodel
+mobile_type = "ssd"
+# mobile_type = "seg"
 
-deploy_proto = 'example/MobileNetSSD_deploy.prototxt'
-save_model = 'example/MobileNetSSD_merged_deploy_nms.caffemodel'
+iter_num = 4500
+
+train_proto = 'proto/{}/MobileNetSSD_train.prototxt'.format(mobile_type)
+
+#should be your snapshot caffemodel
+train_model = 'snapshot/{}/_iter_{}.caffemodel'.format(mobile_type, iter_num)
+
+deploy_proto = 'proto/{}/MobileNetSSD_deploy.prototxt'.format(mobile_type)
+save_model = 'proto/{}/MobileNetSSD_deploy.caffemodel'.format(mobile_type)
 
 def merge_bn(net, nob):
     '''

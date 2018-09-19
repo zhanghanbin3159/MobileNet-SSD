@@ -13,12 +13,12 @@ fi
 cls_num=$1
 cls_num3=$(expr $1 \* 3)
 cls_num6=$(expr $1 \* 6)
-trainfile=example/MobileNetSSD_train.prototxt
-testfile=example/MobileNetSSD_test.prototxt
-deploybnfile=example/MobileNetSSD_deploy_bn.prototxt
-deployfile=example/MobileNetSSD_deploy.prototxt
+trainfile=proto/ssd/MobileNetSSD_train.prototxt
+testfile=proto/ssd/MobileNetSSD_test.prototxt
+deploybnfile=proto/ssd/MobileNetSSD_deploy_bn.prototxt
+deployfile=proto/ssd/MobileNetSSD_deploy.prototxt
 
-mkdir -p example
+mkdir -p proto/ssd/
 
 cp template/MobileNetSSD_train_template.prototxt $trainfile
 sed -i "s/cls6x/${cls_num6}/g" $trainfile

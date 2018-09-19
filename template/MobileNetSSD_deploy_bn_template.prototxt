@@ -3,8 +3,8 @@ input: "data"
 input_shape {
   dim: 1
   dim: 3
-  dim: 300
-  dim: 300
+  dim: 320
+  dim: 480
 }
 layer {
   name: "conv0"
@@ -2384,7 +2384,7 @@ layer {
   name: "conv11_mbox_conf_new"
   type: "Convolution"
   bottom: "conv11"
-  top: "conv11_mbox_conf"
+  top: "conv11_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2408,7 +2408,7 @@ layer {
 layer {
   name: "conv11_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv11_mbox_conf"
+  bottom: "conv11_mbox_conf_new"
   top: "conv11_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2494,7 +2494,7 @@ layer {
   name: "conv13_mbox_conf_new"
   type: "Convolution"
   bottom: "conv13"
-  top: "conv13_mbox_conf"
+  top: "conv13_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2518,7 +2518,7 @@ layer {
 layer {
   name: "conv13_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv13_mbox_conf"
+  bottom: "conv13_mbox_conf_new"
   top: "conv13_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2606,7 +2606,7 @@ layer {
   name: "conv14_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv14_2"
-  top: "conv14_2_mbox_conf"
+  top: "conv14_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2630,7 +2630,7 @@ layer {
 layer {
   name: "conv14_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv14_2_mbox_conf"
+  bottom: "conv14_2_mbox_conf_new"
   top: "conv14_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2718,7 +2718,7 @@ layer {
   name: "conv15_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv15_2"
-  top: "conv15_2_mbox_conf"
+  top: "conv15_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2742,7 +2742,7 @@ layer {
 layer {
   name: "conv15_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv15_2_mbox_conf"
+  bottom: "conv15_2_mbox_conf_new"
   top: "conv15_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2830,7 +2830,7 @@ layer {
   name: "conv16_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv16_2"
-  top: "conv16_2_mbox_conf"
+  top: "conv16_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2854,7 +2854,7 @@ layer {
 layer {
   name: "conv16_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv16_2_mbox_conf"
+  bottom: "conv16_2_mbox_conf_new"
   top: "conv16_2_mbox_conf_perm"
   permute_param {
     order: 0
@@ -2942,7 +2942,7 @@ layer {
   name: "conv17_2_mbox_conf_new"
   type: "Convolution"
   bottom: "conv17_2"
-  top: "conv17_2_mbox_conf"
+  top: "conv17_2_mbox_conf_new"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -2966,7 +2966,7 @@ layer {
 layer {
   name: "conv17_2_mbox_conf_perm"
   type: "Permute"
-  bottom: "conv17_2_mbox_conf"
+  bottom: "conv17_2_mbox_conf_new"
   top: "conv17_2_mbox_conf_perm"
   permute_param {
     order: 0

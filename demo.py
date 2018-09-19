@@ -4,16 +4,17 @@ import cv2
 sys.path.append('/home/pesong/tools/ssd-caffe/python')
 import caffe  
 
+mobile_type = "ssd"
 
-net_file= 'example/MobileNetSSD_deploy.prototxt'
-caffe_model='example/MobileNetSSD_merged_deploy_nms.caffemodel'
+net_file= 'proto/{}/MobileNetSSD_deploy.prototxt'.format(mobile_type)
+caffe_model='proto/{}/MobileNetSSD_deploy.caffemodel'.format(mobile_type)
 test_dir = "images"
 
 if not os.path.exists(caffe_model):
     print("MobileNetSSD_deploy.caffemodel does not exist,")
     print("use merge_bn.py to generate it.")
     exit()
-net = caffe.Net(net_file,caffe_model,caffe.TEST)  
+net = caffe.Net(net_file, caffe_model, caffe.TEST)
 
 # CLASSES = ('background',
 #            'aeroplane', 'bicycle', 'bird', 'boat',
@@ -22,11 +23,11 @@ net = caffe.Net(net_file,caffe_model,caffe.TEST)
 #            'motorbike', 'person', 'pottedplant',
 #            'sheep', 'sofa', 'train', 'tvmonitor')
 
-CLASSES = ('background', 'person',  'car', 'bicycle')
+CLASSES = ('background', 'person',  'face')
 
 
 def preprocess(src):
-    img = cv2.resize(src, (300,300))
+    img = cv2.resize(src, (480, 320))
     img = img - 127.5
     img = img * 0.007843
     return img
