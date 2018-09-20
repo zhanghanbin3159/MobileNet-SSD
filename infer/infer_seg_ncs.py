@@ -2,7 +2,6 @@
 
 import os
 import time
-
 import numpy
 import skimage.io
 import skimage.transform
@@ -13,10 +12,10 @@ import matplotlib.pyplot as plt
 
 
 # input parameters
-IMAGE_MEAN = [71.60167789, 82.09696889, 72.30608881]
+IMAGE_MEAN = [127.5, 127.5, 127.5]
 
-GRAPH_PATH = 'ncs_model/mobilenetv2_fcn4s_test.graph'
-IMAGE_PATH_ROOT = 'demo_test/CS/'
+graph_file_name = '/dl/model/MobileNet-SSD/proto/seg/MobileNetSSD_deploy.graph'
+IMAGE_PATH_ROOT = '/dl/model/MobileNet-SSD/images/CS/'
 IMAGE_DIM = [320, 480]
 
 
@@ -36,9 +35,6 @@ device = mvnc.Device(devices[0])
 
 # Open the NCS
 device.open()
-
-# The graph file that was created with the ncsdk compiler
-graph_file_name = 'graph'
 
 
 # ---------step2: load a graph file into hte ncs device----------------------
@@ -70,7 +66,7 @@ for IMAGE_PATH in os.listdir(IMAGE_PATH_ROOT):
 
     # Mean subtraction & scaling [A common technique used to center the data]
     img = img.astype(numpy.float32)
-    image_t = (img - numpy.float32(IMAGE_MEAN))
+    image_t = (img - numpy.float32(IMAGE_MEAN)) * numpy.float32(2.0/255)
     # image_t = numpy.transpose(image_t, (2, 0, 1))
 
 # -----------step4: get result-------------------------------------------------
@@ -82,7 +78,7 @@ for IMAGE_PATH in os.listdir(IMAGE_PATH_ROOT):
     #  flatten ---> image
     out = out.reshape(-1, 2).T.reshape(2, 331, -1)
     out = out.argmax(axis=0)
-    out = out[6:-5, 6:-5]
+    out = out[0:-11, 0:-11]
 
     # save result
     voc_palette = vis.make_palette(2)
@@ -101,7 +97,7 @@ for IMAGE_PATH in os.listdir(IMAGE_PATH_ROOT):
 
 
     # draw picture
-    plt.suptitle('MobilenetV2-movidius', fontsize=16)
+    plt.suptitle('MobilenetV1-movidius', fontsize=16)
 
     plt.subplot(1, 2, 1)
     plt.title("orig image", fontsize=16)

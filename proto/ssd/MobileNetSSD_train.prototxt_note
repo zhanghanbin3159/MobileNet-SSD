@@ -31,9 +31,9 @@ layer {
       emit_type: CENTER
     }
 
-    # 色彩扭曲参数组
 
-    distort_param {
+
+    distort_param {             # 色彩扭曲参数组
       brightness_prob: 0.5
       brightness_delta: 32.0
       contrast_prob: 0.5
@@ -2574,19 +2574,19 @@ layer {
 layer {
   name: "conv11_mbox_priorbox"
   type: "PriorBox"
-  bottom: "conv11"
-  bottom: "data"
+  bottom: "conv11"                          # bottom[0]：特征向量
+  bottom: "data"                            # bottom[1]：原始输入（主要提供宽、高参数）
   top: "conv11_mbox_priorbox"
   prior_box_param {
-    min_size: 60.0
-    aspect_ratio: 2.0
-    flip: true
-    clip: false
-    variance: 0.1
+    min_size: 60.0                          # 最小的基本Box大小（可根据论文计算）
+    aspect_ratio: 2.0                       # 所要用的长宽比（除了1.0）
+    flip: true                              # 是否以0.5的概率翻转
+    clip: false                             # 是否截断Box（若截断表示不允许Box超出图片范围）
+    variance: 0.1                           # xmin的偏差因子
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    offset: 0.5
+    offset: 0.5                             # Box中心相对于感受野中心的x、y偏移量
   }
 }
 layer {
@@ -3194,36 +3194,44 @@ layer {
 layer {
   name: "mbox_loss"
   type: "MultiBoxLoss"
-  bottom: "mbox_loc"
-  bottom: "mbox_conf"
-  bottom: "mbox_priorbox"
-  bottom: "label"
+  bottom: "mbox_loc"                            # 用于预测位置的特征向量
+  bottom: "mbox_conf"                           # 用于预测分类的特征向量
+  bottom: "mbox_priorbox"                       # 若干PriorBox的输出连接
+  bottom: "label"                               # 训练用的标签
   top: "mbox_loss"
   include {
     phase: TRAIN
   }
-  propagate_down: true
-  propagate_down: true
-  propagate_down: false
-  propagate_down: false
+  propagate_down: true                          # bottom[0] : mbox_loc，需要训练（反向传播
+  propagate_down: true                          # bottom[1] : mbox_conf，需要训练
+  propagate_down: false                         # bottom[2] : mbox_priorbox，不需要训练
+  propagate_down: false                         # bottom[3] : label，不需要训练
   loss_param {
-    normalization: VALID
+    normalization: VALID                        # 损失的归一化方式
+                                                #    FULL：除以batch_size
+                                                #    VALID：除以有效的数量（排除ignore_label参数指定的标签）
+                                                #    NONE
+
   }
   multibox_loss_param {
-    loc_loss_type: SMOOTH_L1
-    conf_loss_type: SOFTMAX
-    loc_weight: 1.0
-    num_classes: 4
-    share_location: true
+    loc_loss_type: SMOOTH_L1                    # 位置预测的损失函数
+    conf_loss_type: SOFTMAX                     # 分类预测的损失函数
+    loc_weight: 1.0                             # loc_loss的权重，论文中的alpha
+    num_classes: 4                              # 输出类别
+    share_location: true                        # 是否让所有的预测框共享参数
     match_type: PER_PREDICTION
-    overlap_threshold: 0.5
-    use_prior_for_matching: true
-    background_label_id: 0
-    use_difficult_gt: true
-    neg_pos_ratio: 3.0
-    neg_overlap: 0.5
-    code_type: CENTER_SIZE
+    overlap_threshold: 0.5                      # 重叠阈值（训练时超过该阈值的Box作为正样本）
+    use_prior_for_matching: true                # 是否使用先验框（即前边是否有PriorBox）
+    background_label_id: 0                      # 背景（background）标签的id值（与labelmap.prototxt文件匹配）
+    use_difficult_gt: true                      # 是否使用difficult的Ground Truth
+    neg_pos_ratio: 3.0                          # 负样本:正样本 的比例
+    neg_overlap: 0.5                            # 负样本阈值（低于该阈值的Box作为负样本）
+    code_type: CENTER_SIZE                      # bounding box的编码方式
     ignore_cross_boundary_bbox: false
-    mining_type: MAX_NEGATIVE
+    mining_type: MAX_NEGATIVE                   # 挖掘类型
+                                                #   NONE：什么都不用，会发生正负样本步均衡
+                                                #   MAX_NEGATIVE：为负样本排序，选择分类得分最高的一批作为训练的负样本
+                                                #   HARD_EXAMPLE：选择基于“在线硬示例挖掘的基于训练区域的对象探测器”的硬实例（？）
+
   }
 }

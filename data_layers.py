@@ -128,7 +128,7 @@ class CityScapeSegDataLayer(caffe.Layer):
         in_ = in_[:, :, ::-1]
         in_ -= self.mean
         in_ = in_.transpose((2,0,1))
-        # in_ = in_ * (2.0/255)
+        in_ = in_ * (2.0/255)
         return in_
 
 

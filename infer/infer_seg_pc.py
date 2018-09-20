@@ -61,6 +61,7 @@ for IMAGE_PATH in os.listdir(IMAGE_PATH_root):
     image = caffe.io.load_image(os.path.join(IMAGE_PATH_root, IMAGE_PATH))
     image_t = transformer.preprocess('data', image)
 
+    image_t = image_t * (2.0/255)
     # # copy the image data into the memory allocated for the net
     net.blobs['data'].data[...] = image_t
 
