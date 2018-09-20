@@ -1,4 +1,3 @@
-name: "MobileNet-SSD"
 layer {
   name: "data"
   type: "Python"
@@ -8,7 +7,7 @@ layer {
   python_param {
     module: "data_layers"
     layer: "CityScapeSegDataLayer"
-    param_str: "{\'cityscape_dir\': \'/dl/data/cityscapes/cityscapes_ncs', \'batch_size\': 1, \'crop_size\': (320,480), \'seed\': 1337, \'split\': \'train\', \'mean\': (127.5, 127.5, 127.5)}"
+    param_str: "{\'cityscape_dir\': \'/dl/data/cityscapes/cityscapes_ncs', \'batch_size\': 1, \'crop_size\': (320,480), \'seed\': 1337, \'split\': \'val\', \'mean\': (127.5, 127.5, 127.5)}"
    }
 }
 

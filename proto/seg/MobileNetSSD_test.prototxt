@@ -2,6 +2,7 @@ layer {
   name: "data"
   type: "Python"
   top: "data"
+  top: "label0"
   top: "label"
   python_param {
     module: "data_layers"

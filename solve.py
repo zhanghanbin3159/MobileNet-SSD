@@ -27,7 +27,7 @@ n_steps = 20000
 caffe.set_device(0)
 caffe.set_mode_gpu()
 
-solver = caffe.get_solver('solver_train.prototxt')
+solver = caffe.get_solver('solver_train_seg.prototxt')
 solver.net.copy_from(weights)
 
 # surgeries
