@@ -16,14 +16,14 @@ if not os.path.exists(caffe_model):
     exit()
 net = caffe.Net(net_file, caffe_model, caffe.TEST)
 
-# CLASSES = ('background',
-#            'aeroplane', 'bicycle', 'bird', 'boat',
-#            'bottle', 'bus', 'car', 'cat', 'chair',
-#            'cow', 'diningtable', 'dog', 'horse',
-#            'motorbike', 'person', 'pottedplant',
-#            'sheep', 'sofa', 'train', 'tvmonitor')
-
-CLASSES = ('background', 'person',  'face')
+CLASSES = ('background',
+           'aeroplane', 'bicycle', 'bird', 'boat',
+           'bottle', 'bus', 'car', 'cat', 'chair',
+           'cow', 'diningtable', 'dog', 'horse',
+           'motorbike', 'person', 'pottedplant',
+           'sheep', 'sofa', 'train', 'tvmonitor')
+#
+# CLASSES = ('background', 'person',  'face')
 
 
 def preprocess(src):
