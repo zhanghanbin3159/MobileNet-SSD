@@ -1,12 +1,12 @@
 import numpy as np  
 import sys,os  
 import cv2
-sys.path.append('/home/pesong/tools/ssd-caffe/python')
+sys.path.append('/media/ziwei/Harddisk02/HanBin/TOOL/workspace_caffe/ssd/python')
 import caffe  
 
 
-net_file= 'example/MobileNetSSD_deploy.prototxt'
-caffe_model='example/MobileNetSSD_merged_deploy_nms.caffemodel'
+net_file= 'example/V1_4category/MobileNetSSD_deploy.prototxt'
+caffe_model='result_model/MobileNetSSD_merged_deploy_nms_18000.caffemodel'
 test_dir = "images"
 
 if not os.path.exists(caffe_model):

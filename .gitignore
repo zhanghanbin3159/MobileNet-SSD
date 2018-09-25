@@ -1,8 +1,5 @@
 .idea/
-snapshot/
-snapshot2/
-lmdb/
+/snapshot*
+/*lmdb
 __pycache__/
-images/CS
-utils/
 
