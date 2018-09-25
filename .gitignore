@@ -2,3 +2,7 @@
 snapshot/
 snapshot2/
 lmdb/
+__pycache__/
+images/CS
+utils/
+
